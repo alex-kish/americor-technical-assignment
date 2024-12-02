@@ -1,0 +1,10 @@
+### Pre loan check
+GET {{base_url}}/api/v1/product/1/pre-loan-check?client_id=1&monthly_income=1200
+
+###
+
+### Issue loan
+POST {{base_url}}/api/v1/product/1/issue-loan
+Content-Type: application/x-www-form-urlencoded
+
+###

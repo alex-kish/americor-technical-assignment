@@ -1,0 +1,18 @@
+### View client by id
+GET {{base_url}}/api/v1/client/1
+
+###
+
+### Create client
+POST {{base_url}}/api/v1/client
+Content-Type: application/x-www-form-urlencoded
+
+first_name=johndoe&last_name=wolf&email=test@test.com&age=32&ssn=123456789&street=new one str&city=New york&state=NY&zip_code=12345&fico_credit_score=700&phone_number=2125556789
+###
+
+### Update client
+PATCH {{base_url}}/api/v1/client/1
+Content-Type: application/x-www-form-urlencoded
+
+first_name=johndoe3333&last_name=wolf333&email=test3441@test.com&ssn=123456733&street=new one str333&city=New york333&stateWY&zip_code=12333&fico_credit_score=333&phone_number=2125556333
+###
