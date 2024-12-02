@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  americor-php:
+    build: ./docker/php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - americor
+
+  americor-nginx:
+    build: ./docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - americor
+    depends_on:
+      - americor-php
+
+  americor-db:
+    image: mysql:8.0.33
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: americor
+      MYSQL_USER: americor
+      MYSQL_PASSWORD: secret
+    networks:
+      - americor
+
+networks:
+  americor:
