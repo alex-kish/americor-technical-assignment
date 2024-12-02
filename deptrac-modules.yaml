@@ -1,0 +1,23 @@
+parameters:
+  paths:
+    - ./src
+  exclude_files:
+    - "#.*\/src\/.*\/Infrastructure\/Adapter\/.*#"
+  layers:
+    - name: Core
+      collectors:
+        - type: directory
+          regex: /src/Core/.*
+    - name: Client
+      collectors:
+        - type: directory
+          regex: /src/Client/.*
+    - name: Product
+      collectors:
+        - type: directory
+          regex: /src/Product/.*
+  ruleset:
+    Client:
+      - Core
+    Product:
+      - Core

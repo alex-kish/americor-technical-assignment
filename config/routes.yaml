@@ -1,0 +1,15 @@
+controllers:
+    resource: ../src/Core/Infrastructure/Controller/
+    type: attribute
+
+client-controllers:
+    resource: ../src/Client/Infrastructure/Controller/
+    type: attribute
+
+product-controllers:
+    resource: ../src/Product/Infrastructure/Controller/
+    type: attribute
+
+kernel:
+    resource: ../src/Core/Kernel.php
+    type: attribute

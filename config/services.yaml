@@ -1,0 +1,50 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Core/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Client\Infrastructure\Controller\:
+        resource: '../src/Client/Infrastructure/Controller'
+        tags: ['controller.service_arguments']
+        public: true
+
+    App\Product\Infrastructure\Controller\:
+        resource: '../src/Product/Infrastructure/Controller'
+        tags: ['controller.service_arguments']
+        public: true
+
+    App\Client\Infrastructure\Repository\ClientRepository:
+        tags: ['doctrine.repository_service']
+
+    _instanceof:
+        # all services implementing the CommandHandlerInterface
+        # will be registered on the command.bus bus
+        App\Core\Application\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
+        # while those implementing QueryHandlerInterface will be
+        # registered on the query.bus bus
+        App\Core\Application\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
